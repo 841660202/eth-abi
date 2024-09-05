@@ -1,0 +1,17 @@
+{
+  "name": "eth-lit-ui",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev  --filter={@eth-abi/lit-ui,@example/eth-abi-form}"
+  },
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "private": true,
+  "devDependencies": {
+    "turbo": "^2.1.1"
+  },
+  "packageManager": "pnpm@8.10.5"
+}
