@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "turbo run dev  --filter={@eth-abi/lit-ui,@example/eth-abi-form}"
+    "dev": "turbo run dev  --filter={@eth-abi/lit-ui,@eth-abi/lib-utils,@example/eth-abi}"
   },
   "workspaces": [
     "packages/*",

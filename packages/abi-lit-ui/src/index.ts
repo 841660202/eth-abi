@@ -1,2 +1,2 @@
 export * from './components/abi-function-item';
-export * from './components/abi-ui';
+export * from './components/abi';

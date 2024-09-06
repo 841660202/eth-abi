@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  text-transform: none;
+}
+
+:root {
+    color-scheme:dark;
+    --fallback-p: #7582ff;
+    --fallback-pc: #050617;
+    --fallback-s: #ff71cf;
+    --fallback-sc: #190211;
+    --fallback-a: #00c7b5;
+    --fallback-ac: #000e0c;
+    --fallback-n: #2a323c;
+    --fallback-nc: #a6adbb;
+    --fallback-b1: #1d232a;
+    --fallback-b2: #191e24;
+    --fallback-b3: #15191e;
+    --fallback-bc: #a6adbb;
+    --fallback-in: #00b3f0;
+    --fallback-inc: #000000;
+    --fallback-su: #00ca92;
+    --fallback-suc: #000000;
+    --fallback-wa: #ffc22d;
+    --fallback-wac: #000000;
+    --fallback-er: #ff6f70;
+    --fallback-erc: #000000
+}
+
+.skeleton {
+    border-radius: var(--rounded-box,1rem);
+    --tw-bg-opacity: 0.5;
+    background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
+    will-change: background-position;
+    animation: skeleton 1.8s ease-in-out infinite;
+    background-image: linear-gradient(105deg,transparent 0%,transparent 40%,var(--fallback-b1,oklch(var(--b1)/1)) 50%,transparent 60%,transparent 100%);
+    background-size: 200% auto;
+    background-repeat: no-repeat;
+    background-position-x: -50%;
+}
+
+@media(prefers-reduced-motion) {
+    .skeleton {
+        animation-duration: 15s
+    }
+}
+
+@keyframes skeleton {
+    0% {
+        background-position: 150%
+    }
+
+    to {
+        background-position: -50%
+    }
+}
+
+
+
+.notifications-container {
+  display: flex;
+  flex-direction: column;
+}
+.notification {
+  background-color: #444;
+  color: #fff;
+  padding: 2px;
+  margin: 2px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  opacity: 0.9;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.notifications-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}

@@ -13,8 +13,8 @@ import type { Abi, AbiFunction, AbiItem } from '../types';
  * @slot - This element has a slot
  * @csspart button - The button
  */
-@customElement('abi-ui-element')
-export class AbiUIElement extends LitElement {
+@customElement('abi-element')
+export class AbiElement extends LitElement {
   /**
    * Copy for the read the docs hint.
    */
@@ -87,6 +87,6 @@ export class AbiUIElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'abi-ui-element': AbiUIElement;
+    'abi-element': AbiElement;
   }
 }
