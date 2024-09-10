@@ -1,9 +1,9 @@
 {
-  "name": "@template/starter-lit-with-tailwind",
+  "name": "@example/swap-ui",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "vite dev",
+    "dev": "vite dev --port 6001",
     "start": "vite --host",
     "build": "vite build",
     "lint": "eslint src --fix"
@@ -18,6 +18,7 @@
     "vite": "^2.7.13"
   },
   "dependencies": {
+    "@eth/swap-ui": "workspace:^",
     "postcss": "^8.4.14"
   }
 }

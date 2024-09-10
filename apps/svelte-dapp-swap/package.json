@@ -1,5 +1,5 @@
 {
-  "name": "@template/svelte-kit-tailwindcss",
+  "name": "dapp-swap",
   "version": "0.0.1",
   "private": true,
   "scripts": {

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "turbo run dev  --filter={@eth-abi/lit-ui,@eth-abi/lib-utils,@example/eth-abi}"
+    "dev:abi": "turbo run dev  --filter={@eth-abi/lit-ui,@eth-abi/lib-utils,@example/eth-abi}",
+    "dev:swap": "turbo run dev  --filter={@eth/swap-ui,@example/swap-ui}"
   },
   "workspaces": [
     "packages/*",
