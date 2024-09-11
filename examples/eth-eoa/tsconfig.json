@@ -20,7 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-      /* Other */
+    /* Other */
     "resolveJsonModule": true
   },
   "include": ["src"]

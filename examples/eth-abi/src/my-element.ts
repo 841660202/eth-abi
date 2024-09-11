@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { entryPointV6Abi } from './abis/entrypoint_v6';
 
 // import './lib/abi-ui';
-import '@eth-abi/lit-ui'
+import '@eth-abi/lit-ui';
 /**
  * An example element.
  *
@@ -17,7 +17,14 @@ export class MyElement extends LitElement {
   }
 
   render() {
-    return html`<abi-element .abi=${entryPointV6Abi} .onCallback=${this.callback}></abi-element> `;
+    return html`
+      <abi-table></abi-table>
+      <abi-form .onOk=${this.handleOk}></abi-form>
+      <abi-element .abi=${entryPointV6Abi} .onCallback=${this.callback}></abi-element>
+    `;
+  }
+  handleOk(v: any) {
+    console.log(v);
   }
 
   static styles = css`

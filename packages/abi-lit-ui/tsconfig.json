@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-     "outDir": "dist",
+    "outDir": "dist",
     // // Enable latest features
     // "lib": ["ESNext"],
     // "target": "ESNext",

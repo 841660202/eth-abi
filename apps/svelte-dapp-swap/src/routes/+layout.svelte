@@ -1,5 +1,5 @@
 <script>
-import '../app.css'
+	import '../app.css';
 </script>
 
 <ul class="menu bg-base-200 lg:menu-horizontal fixed z-40 t-0 w-full">
@@ -43,7 +43,7 @@ import '../app.css'
 			<span class="badge badge-sm badge-warning">NEW</span>
 		</a>
 	</li>
-  <li>
+	<li>
 		<a href="/owner">
 			Owner
 			<span class="badge badge-xs badge-info"></span>
@@ -55,7 +55,7 @@ import '../app.css'
 			<span class="badge badge-xs badge-info"></span>
 		</a>
 	</li>
-	
+
 	<li>
 		<a href="/settings">
 			settings

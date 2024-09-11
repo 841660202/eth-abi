@@ -1,26 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-  const handleClick = async() => { 
-    if ('credentials' in navigator) {
+  const handleClick = async () => {
+    if ("credentials" in navigator) {
       const challenge = Uint8Array.from([
-        105, 171, 180, 181, 160, 222, 75, 198, 42, 42, 32, 31, 141, 37, 186, 233,
-      ])
+        105, 171, 180, 181, 160, 222, 75, 198, 42, 42, 32, 31, 141, 37, 186,
+        233,
+      ]);
       const assertion = await navigator.credentials.get({
         publicKey: {
           challenge,
-          userVerification: 'preferred'
-        }
+          userVerification: "preferred",
+        },
       });
 
       console.log("assertion", assertion);
-    } else { 
-      console.log('不支持')
+    } else {
+      console.log("不支持");
     }
-  }
+  };
   return (
     <>
       {/* <div>
@@ -33,9 +34,7 @@ function App() {
       </div>
       <h1>Vite + React</h1> */}
       <div className="card">
-        <button onClick={handleClick}>
-          escape
-        </button>
+        <button onClick={handleClick}>escape</button>
         {/* <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p> */}
@@ -44,7 +43,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -7,41 +7,47 @@ export interface AbiParameter {
 }
 
 export interface AbiFunction {
-  type: 'function';
+  type: "function";
   name: string;
   inputs: AbiParameter[];
   outputs: AbiParameter[];
-  stateMutability?: 'pure' | 'view' | 'nonpayable' | 'payable';
+  stateMutability?: "pure" | "view" | "nonpayable" | "payable";
 }
 
 export interface AbiEvent {
-  type: 'event';
+  type: "event";
   name: string;
   inputs: AbiParameter[];
   anonymous: boolean;
 }
 export interface AbiError {
-  type: 'error';
+  type: "error";
   name?: string;
   inputs: AbiParameter[];
 }
 
 export interface AbiConstructor {
-  type: 'constructor';
+  type: "constructor";
   inputs: AbiParameter[];
-  stateMutability: 'nonpayable' | 'payable';
+  stateMutability: "nonpayable" | "payable";
 }
 
 export interface AbiFallback {
-  type: 'fallback';
-  stateMutability: 'nonpayable' | 'payable';
+  type: "fallback";
+  stateMutability: "nonpayable" | "payable";
 }
 
 export interface AbiReceive {
-  type: 'receive';
-  stateMutability: 'payable';
+  type: "receive";
+  stateMutability: "payable";
 }
 
-export type AbiItem = AbiFunction | AbiEvent | AbiConstructor | AbiFallback | AbiReceive | AbiError;
+export type AbiItem =
+  | AbiFunction
+  | AbiEvent
+  | AbiConstructor
+  | AbiFallback
+  | AbiReceive
+  | AbiError;
 
 export type Abi = AbiItem[];

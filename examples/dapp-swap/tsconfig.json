@@ -16,6 +16,12 @@
     "isolatedModules": true,
     "moduleDetection": "force"
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "daisyui.d.ts", "daisyui.d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.svelte",
+    "daisyui.d.ts",
+    "daisyui.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

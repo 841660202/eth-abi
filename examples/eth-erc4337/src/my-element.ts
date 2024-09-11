@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { entryPointV6Abi } from './abis/entrypoint_v6';
 
 // import './lib/abi-ui';
-import '@eth-abi/lit-ui'
+import '@eth-abi/lit-ui';
 /**
  * An example element.
  *

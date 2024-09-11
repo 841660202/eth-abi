@@ -1,19 +1,19 @@
-import { LitElement, css, html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { repeat } from 'lit/directives/repeat.js';
-import './abi-function-item';
+import { LitElement, css, html } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
+import { repeat } from "lit/directives/repeat.js";
+import "./abi-function-item";
 
 function isAbiFunction(item: AbiItem): item is AbiFunction {
-  return item.type === 'function';
+  return item.type === "function";
 }
-import type { Abi, AbiFunction, AbiItem } from '../types';
+import type { Abi, AbiFunction, AbiItem } from "../types";
 /**
  * An example element.
  *
  * @slot - This element has a slot
  * @csspart button - The button
  */
-@customElement('abi-element')
+@customElement("abi-element")
 export class AbiElement extends LitElement {
   /**
    * Copy for the read the docs hint.
@@ -35,7 +35,7 @@ export class AbiElement extends LitElement {
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>) {
-    if (changedProperties.has('abi')) {
+    if (changedProperties.has("abi")) {
       this.updateOperations();
     }
   }
@@ -44,13 +44,16 @@ export class AbiElement extends LitElement {
     this.writeOperations = this.abi
       .filter(
         (item): item is AbiFunction =>
-          !['event', 'error', 'constructor'].includes(item.type) &&
-          !(isAbiFunction(item) && item.stateMutability === 'view')
+          !["event", "error", "constructor"].includes(item.type) &&
+          !(isAbiFunction(item) && item.stateMutability === "view"),
       )
       .sort((a, b) => a.name.localeCompare(b.name));
 
     this.readOperations = this.abi
-      .filter((item): item is AbiFunction => isAbiFunction(item) && item.stateMutability === 'view')
+      .filter(
+        (item): item is AbiFunction =>
+          isAbiFunction(item) && item.stateMutability === "view",
+      )
       .sort((a, b) => a.name.localeCompare(b.name));
   }
 
@@ -61,7 +64,10 @@ export class AbiElement extends LitElement {
           operations,
           (abiItem) => abiItem.name,
           (abiItem) =>
-            html`<abi-function-item .abiItem="${abiItem}" .onCallback=${this.onCallback}></abi-function-item>`
+            html`<abi-function-item
+              .abiItem="${abiItem}"
+              .onCallback=${this.onCallback}
+            ></abi-function-item>`,
         )}
       </ul>
     `;
@@ -87,6 +93,6 @@ export class AbiElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'abi-element': AbiElement;
+    "abi-element": AbiElement;
   }
 }

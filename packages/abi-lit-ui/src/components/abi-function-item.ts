@@ -1,10 +1,10 @@
-import { LitElement, css, html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import type { AbiFunction } from '../types';
-import { repeat } from 'lit/directives/repeat.js';
-import { encodeFunctionData } from 'viem';
+import { LitElement, css, html } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
+import type { AbiFunction } from "../types";
+import { repeat } from "lit/directives/repeat.js";
+import { encodeFunctionData } from "viem";
 
-@customElement('abi-function-item')
+@customElement("abi-function-item")
 export class AbiFunctionItemElement extends LitElement {
   /**
    * Copy for the read the docs hint.
@@ -25,12 +25,12 @@ export class AbiFunctionItemElement extends LitElement {
   canSubmit = false;
 
   updated(changedProperties: any) {
-    if (changedProperties.has('abiItem')) {
+    if (changedProperties.has("abiItem")) {
       this.initializeformItems();
     }
   }
   initializeformItems() {
-    this.formItems = this.abiItem?.inputs.map(() => '');
+    this.formItems = this.abiItem?.inputs.map(() => "");
 
     this.checkFormValidity();
   }
@@ -40,12 +40,12 @@ export class AbiFunctionItemElement extends LitElement {
     this.checkFormValidity();
   }
   handleInputArrayString(event: InputEvent) {
-    this.formItems = (event.target as HTMLInputElement).value?.split(',');
+    this.formItems = (event.target as HTMLInputElement).value?.split(",");
     this.checkFormValidity();
   }
 
   checkFormValidity() {
-    this.canSubmit = this.formItems.every((value) => value.trim() !== '');
+    this.canSubmit = this.formItems.every((value) => value.trim() !== "");
   }
 
   handleSubmit() {
@@ -60,10 +60,15 @@ export class AbiFunctionItemElement extends LitElement {
 
   renderCollapse() {
     const { abiItem } = this;
-    const isRead = abiItem.stateMutability === 'view';
-    const buttonReadClass = isRead ? 'btn btn-sm btn-info' : 'btn btn-sm btn-warning';
+    const isRead = abiItem.stateMutability === "view";
+    const buttonReadClass = isRead
+      ? "btn btn-sm btn-info"
+      : "btn btn-sm btn-warning";
     return html`
-      <form class="flex items-center" @submit="${(e: FormDataEvent) => e.preventDefault()}">
+      <form
+        class="flex items-center"
+        @submit="${(e: FormDataEvent) => e.preventDefault()}"
+      >
         <button
           ?disabled="${!this.canSubmit}"
           type="submit"
@@ -77,18 +82,24 @@ export class AbiFunctionItemElement extends LitElement {
           ? html`<input
               style="height: 2rem; visibility: visible;"
               class="form-control"
-              .value="${this.formItems?.join('')?.length > 0 ? this.formItems?.join(',') : ''}"
-              placeholder=${abiItem.inputs.map((item) => item.type + ' ' + item.name).join(',')}
+              .value="${this.formItems?.join("")?.length > 0
+                ? this.formItems?.join(",")
+                : ""}"
+              placeholder=${abiItem.inputs
+                .map((item) => item.type + " " + item.name)
+                .join(",")}
               @input="${(e: InputEvent) => this.handleInputArrayString(e)}"
             /> `
-          : ''}
+          : ""}
       </form>
     `;
   }
   renderExpand() {
     const { abiItem } = this;
-    const isRead = abiItem.stateMutability === 'view';
-    const buttonReadClass = isRead ? 'btn btn-sm btn-info' : 'btn btn-sm btn-warning';
+    const isRead = abiItem.stateMutability === "view";
+    const buttonReadClass = isRead
+      ? "btn btn-sm btn-info"
+      : "btn btn-sm btn-warning";
 
     return html`
       <form @submit="${(e: FormDataEvent) => e.preventDefault()}">
@@ -100,18 +111,21 @@ export class AbiFunctionItemElement extends LitElement {
                   (item) => item.name,
                   (item, index) =>
                     html` <div class="pt-2 flex justify-end items-center">
-                      <label class="mr-6" for="${item.name}">${item.name}</label>
+                      <label class="mr-6" for="${item.name}"
+                        >${item.name}</label
+                      >
                       <input
                         id="${item.name}"
                         type="text"
                         autocomplete="off"
                         .value="${this.formItems[index]}"
-                        @input="${(e: InputEvent) => this.handleInput(e, item.name, index)}"
+                        @input="${(e: InputEvent) =>
+                          this.handleInput(e, item.name, index)}"
                         style="height: 2rem; visibility: visible;"
                         class="form-control"
                         placeholder=${item.type}
                       />
-                    </div>`
+                    </div>`,
                 )}
 
                 <div class="pt-2 flex justify-end">
@@ -163,13 +177,14 @@ export class AbiFunctionItemElement extends LitElement {
                 </div>
               </div>
             `
-          : ''}
+          : ""}
       </form>
     `;
   }
   render() {
     const { abiItem } = this;
-    const liClass = abiItem.inputs.length > 0 ? 'pt-2 flex justify-end' : 'pt-2 flex';
+    const liClass =
+      abiItem.inputs.length > 0 ? "pt-2 flex justify-end" : "pt-2 flex";
     return html`
       <li class=${liClass} style="min-height: 2rem; visibility: visible;">
         ${this.active ? this.renderExpand() : this.renderCollapse()}
@@ -181,12 +196,18 @@ export class AbiFunctionItemElement extends LitElement {
               stroke-width="1.5"
               stroke="currentColor"
               class="icon-btn transition"
-              style="transform: ${this.active ? 'rotate(180deg)' : 'rotate(0deg)'}"
+              style="transform: ${this.active
+                ? "rotate(180deg)"
+                : "rotate(0deg)"}"
               @click=${() => (this.active = !this.active)}
             >
-              <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+              />
             </svg>`
-          : ''}
+          : ""}
       </li>
     `;
   }
@@ -302,6 +323,6 @@ export class AbiFunctionItemElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'abi-function-item': AbiFunctionItemElement;
+    "abi-function-item": AbiFunctionItemElement;
   }
 }

@@ -4,7 +4,7 @@ import { html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { TwLitElement } from "../common/TwLitElement";
 
-import '@eth/swap-ui/index.css';
+import "@eth/swap-ui/index.css";
 import "@eth/swap-ui";
 
 @customElement("x-index-page")

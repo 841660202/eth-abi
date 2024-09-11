@@ -1,6 +1,3 @@
 {
-  "recommendations": [
-    "bradlc.vscode-tailwindcss",
-    "runem.lit-plugin"
-  ]
+  "recommendations": ["bradlc.vscode-tailwindcss", "runem.lit-plugin"]
 }

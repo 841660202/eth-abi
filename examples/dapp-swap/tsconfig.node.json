@@ -7,10 +7,10 @@
     "moduleResolution": "bundler",
     "strict": true,
     "noEmit": false,
-      "baseUrl": ".",
+    "baseUrl": ".",
     "paths": {
       "*": ["types/*"]
     }
   },
-  "include": ["src/**/*","vite.config.ts", "daisyui.d.ts"]
+  "include": ["src/**/*", "vite.config.ts", "daisyui.d.ts"]
 }
