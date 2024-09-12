@@ -6,17 +6,22 @@ import "./abi-button";
 export class AbiDialogElement extends LitElement {
   @property({ type: Boolean })
   opened = false;
+
+  @property()
+  onClose = () => {};
+
   render() {
     console.log("this.opened", this.opened);
     return html` <div
       class="${classMap({
-      dialog: true,
-      opened: this.opened,
-      closed: !this.opened,
-    })}"
+        dialog: true,
+        opened: this.opened,
+        closed: !this.opened,
+      })}"
     >
       <div class="dialog-bg"></div>
       <div style="flex: 1">
+        <button class="closeBtn" @click=${this.onClose}>X</button>
         <slot name="dialog-title"></slot>
         <slot name="dialog-body"></slot>
       </div>
@@ -24,6 +29,16 @@ export class AbiDialogElement extends LitElement {
     </div>`;
   }
   static styles = css`
+    .closeBtn {
+      position: absolute;
+      right: 1em;
+      top: 1em;
+      border: none;
+      background-color: transparent;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
     .opened {
       display: flex;
       opacity: 1;

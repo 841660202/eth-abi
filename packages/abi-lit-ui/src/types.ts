@@ -52,5 +52,9 @@ export type AbiItem =
 
 export type Abi = AbiItem[];
 
-
-export type AbiForm = { id: string, desc: string, address: string, abi: string }
+export type AbiForm = {
+  id: string;
+  desc: string;
+  address: string;
+  abi: string;
+};

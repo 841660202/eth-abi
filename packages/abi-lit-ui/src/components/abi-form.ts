@@ -11,21 +11,19 @@ export class AbiFormElement extends LitElement {
   opened = false;
 
   @property({ attribute: false })
-  onOk: () => void = () => { };
+  onOk: () => void = () => {};
 
   @property({ attribute: false })
-  onClose: () => void = () => { };
-
-
+  onClose: () => void = () => {};
 
   handleClose() {
-    this.onClose()
+    this.onClose();
   }
 
   render() {
     console.log("this.", this.opened);
     return html`
-      <abi-dialog .opened=${this.opened}>
+      <abi-dialog .opened=${this.opened} .onClose=${this.onClose}>
         <div
           slot="dialog-title"
           style="text-align: left; font-weight: bold; font-size: 24px"

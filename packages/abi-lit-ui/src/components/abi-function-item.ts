@@ -30,7 +30,7 @@ export class AbiFunctionItemElement extends LitElement {
     }
   }
   initializeformItems() {
-    this.formItems = this.abiItem?.inputs.map(() => "");
+    this.formItems = this.abiItem?.inputs?.map(() => "");
 
     this.checkFormValidity();
   }
@@ -45,7 +45,9 @@ export class AbiFunctionItemElement extends LitElement {
   }
 
   checkFormValidity() {
-    this.canSubmit = this.formItems.every((value) => value.trim() !== "");
+    this.canSubmit =
+      this.formItems?.length === 0 ||
+      this.formItems?.every((value) => value.trim() !== "");
   }
 
   handleSubmit() {
@@ -78,15 +80,15 @@ export class AbiFunctionItemElement extends LitElement {
         >
           ${abiItem.name}
         </button>
-        ${abiItem.inputs.length > 0
+        ${abiItem?.inputs?.length > 0
           ? html`<input
               style="height: 2rem; visibility: visible;"
               class="form-control"
               .value="${this.formItems?.join("")?.length > 0
                 ? this.formItems?.join(",")
                 : ""}"
-              placeholder=${abiItem.inputs
-                .map((item) => item.type + " " + item.name)
+              placeholder=${abiItem?.inputs
+                ?.map((item) => item.type + " " + item.name)
                 .join(",")}
               @input="${(e: InputEvent) => this.handleInputArrayString(e)}"
             /> `
@@ -103,11 +105,11 @@ export class AbiFunctionItemElement extends LitElement {
 
     return html`
       <form @submit="${(e: FormDataEvent) => e.preventDefault()}">
-        ${abiItem.inputs.length > 0
+        ${abiItem?.inputs?.length > 0
           ? html`
               <div>
                 ${repeat(
-                  abiItem.inputs,
+                  abiItem?.inputs,
                   (item) => item.name,
                   (item, index) =>
                     html` <div class="pt-2 flex justify-end items-center">
@@ -184,11 +186,14 @@ export class AbiFunctionItemElement extends LitElement {
   render() {
     const { abiItem } = this;
     const liClass =
-      abiItem.inputs.length > 0 ? "pt-2 flex justify-end" : "pt-2 flex";
+      abiItem.inputs?.length > 0 ? "pt-2 flex justify-end" : "pt-2 flex";
+    if (!abiItem.inputs) {
+      console.log("abiItem", abiItem);
+    }
     return html`
       <li class=${liClass} style="min-height: 2rem; visibility: visible;">
         ${this.active ? this.renderExpand() : this.renderCollapse()}
-        ${abiItem.inputs.length > 0
+        ${abiItem.inputs?.length > 0
           ? html` <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

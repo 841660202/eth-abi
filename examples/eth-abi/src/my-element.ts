@@ -1,7 +1,7 @@
-import { LitElement, css, html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { entryPointV6Abi } from './abis/entrypoint_v6';
-type ABIItem = { desc: string, address: string, abi: string }
+import { LitElement, PropertyValues, css, html } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+type ABIFormItem = { desc: string, address: string, abi: string }
+type ABIItem = { desc: string, address: string, abi: [] }
 // import './lib/abi-ui';
 import '@eth-abi/lit-ui';
 /**
@@ -12,41 +12,21 @@ import '@eth-abi/lit-ui';
  */
 @customElement('my-element')
 export class MyElement extends LitElement {
-
+  constructor() {
+    super()
+    this.handleRead = this.handleRead.bind(this)
+  }
 
   @state()
   opened = false;
 
   @state()
-  abiList: ABIItem[] = [];
+  abiList: ABIFormItem[] = [];
 
   @state()
-  abis = [{
-    inputs: [],
-    name: 'ADMIN_ROLE',
-    outputs: [
-      {
-        internalType: 'bytes32',
-        name: '',
-        type: 'bytes32',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'DEFAULT_ADMIN_ROLE',
-    outputs: [
-      {
-        internalType: 'bytes32',
-        name: '',
-        type: 'bytes32',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  }];
+  abiItem?: ABIItem;
+
+
 
   handleOpen(data: `${string}`) {
     this.opened = true
@@ -77,48 +57,45 @@ export class MyElement extends LitElement {
 
   }
 
-  handleSelectAbi(item: any) {
-    console.log("item", item.detail);
+  handleSelectAbi(item: CustomEvent) {
     try {
-      // this.abis = JSON.parse(item.abi);
-      // console.log("handleSelectAbi", this.abis); // 验证解析后的结果
-      this.abis = [
-        {
-          inputs: [],
-          name: 'ADMIN_ROLE',
-          outputs: [
-            {
-              internalType: 'bytes32',
-              name: '',
-              type: 'bytes32',
-            },
-          ],
-          stateMutability: 'view',
-          type: 'function',
-        },
-      ]
+      this.abiItem = {
+        ...item.detail,
+        abi: JSON.parse(item.detail.abi)
+      };
     } catch (error) {
       console.error("Failed to parse ABI", error);
     }
   }
 
+  protected firstUpdated(_changedProperties: PropertyValues): void {
+    this.handleRead()
+  }
+
+
+  handleRead() {
+    let list: ABIFormItem[] = []
+    const res = localStorage.getItem("--tool:evm:abi-list")
+    if (res !== null) {
+      list = JSON.parse(res)
+    }
+    this.abiList = list
+    this.abiItem = {
+      ...this.abiList[0],
+      abi: JSON.parse(this.abiList[0].abi)
+    }
+
+  }
+
   render() {
-    console.log("abis", this.abis);
-    console.log("abiList", this.abiList);
     return html`
-      <button @click=${this.handleSelectAbi}>handleSelectAbi</button>
-        <button @click=${this.handleOpen}>click</button>
-      <button @click=${() => {
-        let list: ABIItem[] = []
-        const res = localStorage.getItem("--tool:evm:abi-list")
-        if (res !== null) {
-          list = JSON.parse(res)
-        }
-        this.abiList = list
-      }}>Read List</button>
-      <abi-table @click=${(event) => this.handleSelectAbi(event)} .datas=${this.abiList}></abi-table>
+      <button @click=${this.handleOpen}>Add abi</button>
+      <button @click=${this.handleRead}>Read List</button>
       <abi-form .opened=${this.opened} .onOk=${this.handleSubmit} .onClose=${() => this.opened = false}></abi-form>
-      <abi-element .abi=${this.abis} .onCallback=${this.callback}> </abi-element>
+      <div class="abi-content">
+        <abi-table @click=${(event: CustomEvent) => this.handleSelectAbi(event)} .datas=${this.abiList} .address=${this.abiItem?.address}></abi-table>
+        <abi-element .abi=${this.abiItem?.abi || []} .onCallback=${this.callback}> </abi-element>
+      </div>
     `;
   }
 
@@ -135,17 +112,8 @@ export class MyElement extends LitElement {
       text-align: center;
     }
 
-    .logo {
-      height: 6em;
-      padding: 1.5em;
-      will-change: filter;
-      transition: filter 300ms;
-    }
-    .logo:hover {
-      filter: drop-shadow(0 0 2em #646cffaa);
-    }
-    .logo.lit:hover {
-      filter: drop-shadow(0 0 2em #325cffaa);
+    .abi-content {
+      display: flex;
     }
 
     .card {

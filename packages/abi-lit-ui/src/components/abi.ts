@@ -22,7 +22,7 @@ export class AbiElement extends LitElement {
   abi: Abi = [];
 
   @property()
-  onCallback: (data: string) => void = () => { };
+  onCallback: (data: string) => void = () => {};
 
   @state()
   writeOperations: AbiFunction[] = [];
@@ -42,34 +42,36 @@ export class AbiElement extends LitElement {
 
   updateOperations() {
     console.log("updateOperations", this.abi);
-    this.writeOperations = this.abi
-      .filter(
-        (item): item is AbiFunction =>
-          !["event", "error", "constructor"].includes(item.type) &&
-          !(isAbiFunction(item) && item.stateMutability === "view"),
-      )
-      .sort((a, b) => a.name.localeCompare(b.name));
+    this.writeOperations =
+      this.abi
+        ?.filter(
+          (item): item is AbiFunction =>
+            !["event", "error", "constructor"].includes(item.type) &&
+            !(isAbiFunction(item) && item.stateMutability === "view"),
+        )
+        .sort((a, b) => a.name.localeCompare(b.name)) || [];
 
-    this.readOperations = this.abi
-      .filter(
-        (item): item is AbiFunction =>
-          isAbiFunction(item) && item.stateMutability === "view",
-      )
-      .sort((a, b) => a.name.localeCompare(b.name));
+    this.readOperations =
+      this.abi
+        ?.filter(
+          (item): item is AbiFunction =>
+            isAbiFunction(item) && item.stateMutability === "view",
+        )
+        .sort((a, b) => a.name.localeCompare(b.name)) || [];
   }
 
   renderOperations(operations: AbiFunction[]) {
     return html`
       <ul>
         ${repeat(
-      operations,
-      (abiItem) => abiItem.name,
-      (abiItem) =>
-        html`<abi-function-item
+          operations,
+          (abiItem) => abiItem.name,
+          (abiItem) =>
+            html`<abi-function-item
               .abiItem="${abiItem}"
               .onCallback=${this.onCallback}
             ></abi-function-item>`,
-    )}
+        )}
       </ul>
     `;
   }
