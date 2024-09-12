@@ -51,3 +51,6 @@ export type AbiItem =
   | AbiError;
 
 export type Abi = AbiItem[];
+
+
+export type AbiForm = { id: string, desc: string, address: string, abi: string }

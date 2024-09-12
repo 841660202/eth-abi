@@ -12,8 +12,6 @@ import '@eth-abi/lit-ui';
  */
 @customElement('my-element')
 export class MyElement extends LitElement {
-
-
   @state()
   opened = false;
 
@@ -78,7 +76,7 @@ export class MyElement extends LitElement {
   }
 
   handleSelectAbi(item: any) {
-    console.log("item", item.detail);
+    console.log("item", item);
     try {
       // this.abis = JSON.parse(item.abi);
       // console.log("handleSelectAbi", this.abis); // 验证解析后的结果
@@ -97,6 +95,7 @@ export class MyElement extends LitElement {
           type: 'function',
         },
       ]
+      this.requestUpdate(); // 强制触发更新
     } catch (error) {
       console.error("Failed to parse ABI", error);
     }
@@ -107,7 +106,7 @@ export class MyElement extends LitElement {
     console.log("abiList", this.abiList);
     return html`
       <button @click=${this.handleSelectAbi}>handleSelectAbi</button>
-        <button @click=${this.handleOpen}>click</button>
+      <button @click=${this.handleOpen}>click</button>
       <button @click=${() => {
         let list: ABIItem[] = []
         const res = localStorage.getItem("--tool:evm:abi-list")
@@ -116,7 +115,7 @@ export class MyElement extends LitElement {
         }
         this.abiList = list
       }}>Read List</button>
-      <abi-table @click=${(event) => this.handleSelectAbi(event)} .datas=${this.abiList}></abi-table>
+      <abi-table .onClick=${this.handleSelectAbi} .datas=${this.abiList}></abi-table>
       <abi-form .opened=${this.opened} .onOk=${this.handleSubmit} .onClose=${() => this.opened = false}></abi-form>
       <abi-element .abi=${this.abis} .onCallback=${this.callback}> </abi-element>
     `;
